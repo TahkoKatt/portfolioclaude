@@ -791,6 +791,48 @@ function downloadFiles() {
     URL.revokeObjectURL(url);
 
     showSuccessMessage();
+    showDeploymentInstructions();
+}
+
+// Show deployment instructions
+function showDeploymentInstructions() {
+    const modal = document.createElement('div');
+    modal.style.cssText = `
+        position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(0,0,0,0.8); z-index: 10000; display: flex;
+        align-items: center; justify-content: center;
+    `;
+
+    modal.innerHTML = `
+        <div style="background: white; padding: 30px; border-radius: 8px; max-width: 500px; margin: 20px;">
+            <h2 style="margin-bottom: 20px; color: #2c3e50;">Deploy Your Changes</h2>
+            <p style="margin-bottom: 15px; line-height: 1.6;">Your updated <code>index.html</code> file has been downloaded. To deploy to your live site:</p>
+
+            <ol style="margin: 20px 0; line-height: 1.8; padding-left: 20px;">
+                <li>Go to <a href="https://github.com/TahkoKatt/portfolioclaude" target="_blank" style="color: #3498db;">your GitHub repo</a></li>
+                <li>Click the <strong>index.html</strong> file</li>
+                <li>Click the <strong>pencil icon</strong> (Edit)</li>
+                <li>Delete all content and <strong>paste the new HTML</strong></li>
+                <li>Scroll down and click <strong>"Commit changes"</strong></li>
+                <li>Your site will auto-update in 1-2 minutes! ✨</li>
+            </ol>
+
+            <p style="margin: 15px 0; padding: 10px; background: #e8f5e8; border-left: 4px solid #27ae60; font-size: 14px;">
+                💡 <strong>Tip:</strong> Keep this CMS tab open to make more changes anytime!
+            </p>
+
+            <button onclick="this.parentElement.parentElement.remove()"
+                    style="background: #3498db; color: white; border: none; padding: 10px 20px;
+                           border-radius: 4px; cursor: pointer; margin-top: 15px;">
+                Got it!
+            </button>
+        </div>
+    `;
+
+    document.body.appendChild(modal);
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) modal.remove();
+    });
 }
 
 // Reset to defaults
@@ -814,4 +856,3 @@ function debounce(func, wait) {
         timeout = setTimeout(later, wait);
     };
 }
-    `;
