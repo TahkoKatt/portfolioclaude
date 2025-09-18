@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio CMS - Content Management System</title>
+    <title>Portfolio CMS - Slideshow Edition</title>
     <style>
         * {
             margin: 0;
@@ -19,7 +19,7 @@
         }
 
         .cms-container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             padding: 20px;
         }
@@ -52,7 +52,7 @@
             padding: 25px;
             border-radius: 8px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            max-height: 80vh;
+            max-height: 85vh;
             overflow-y: auto;
         }
 
@@ -62,7 +62,7 @@
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             position: sticky;
             top: 20px;
-            height: 80vh;
+            height: 85vh;
         }
 
         .cms-preview iframe {
@@ -131,17 +131,25 @@
             border: 1px solid #e9ecef;
         }
 
-        .image-item h4 {
+        .image-item h4, .image-item h5 {
             color: #495057;
             margin-bottom: 10px;
             font-size: 14px;
         }
 
-        .image-controls {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 10px;
-            align-items: end;
+        .project-item {
+            background: #f0f8ff;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border: 1px solid #cce7ff;
+        }
+
+        .social-link-item {
+            background: #f0f0f0;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 10px;
         }
 
         .btn {
@@ -196,32 +204,11 @@
             border-top: 1px solid #eee;
         }
 
-        .nav-item {
-            background: #f8f9fa;
-            padding: 10px;
-            border-radius: 6px;
-            margin-bottom: 10px;
-            border: 1px solid #e9ecef;
-        }
-
-        .nav-item-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-
         .color-input {
             width: 50px !important;
             height: 35px;
             padding: 2px;
             border-radius: 4px;
-        }
-
-        .grid-helper {
-            font-size: 12px;
-            color: #666;
-            margin-top: 5px;
         }
 
         @media (max-width: 768px) {
@@ -250,13 +237,44 @@
             color: #666;
             margin-top: 3px;
         }
+
+        .section-tabs {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .section-tab {
+            padding: 10px 15px;
+            background: #f8f9fa;
+            border: 1px solid #ddd;
+            border-bottom: none;
+            cursor: pointer;
+            border-radius: 4px 4px 0 0;
+            transition: all 0.3s ease;
+        }
+
+        .section-tab.active {
+            background: #fff;
+            border-color: #3498db;
+            color: #3498db;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
     </style>
 </head>
 <body>
     <div class="cms-container">
         <div class="cms-header">
-            <h1>Portfolio CMS</h1>
-            <p>Edit your portfolio content easily without touching any code. Changes are saved automatically and you can preview them live.</p>
+            <h1>Portfolio CMS - Slideshow Edition</h1>
+            <p>Create and manage your portfolio with slideshow functionality. Edit images with size and orientation controls, manage projects with descriptions, and customize all content.</p>
         </div>
 
         <div class="cms-main">
@@ -265,61 +283,130 @@
                     Changes saved successfully!
                 </div>
 
-                <!-- Site Information -->
-                <div class="form-section">
-                    <h3>Site Information</h3>
-                    <div class="form-group">
-                        <label for="siteName">Your Name/Brand</label>
-                        <input type="text" id="siteName" placeholder="e.g., John Doe" value="Your Name">
+                <!-- Section Tabs -->
+                <div class="section-tabs">
+                    <div class="section-tab active" onclick="showTab('site-settings')">Site</div>
+                    <div class="section-tab" onclick="showTab('home-slideshow')">Home</div>
+                    <div class="section-tab" onclick="showTab('work-projects')">Work</div>
+                    <div class="section-tab" onclick="showTab('about-section')">About</div>
+                    <div class="section-tab" onclick="showTab('contact-section')">Contact</div>
+                </div>
+
+                <!-- Site Settings Tab -->
+                <div id="site-settings" class="tab-content active">
+                    <div class="form-section">
+                        <h3>Site Information</h3>
+                        <div class="form-group">
+                            <label for="siteName">Your Name/Brand</label>
+                            <input type="text" id="siteName" placeholder="e.g., John Doe" value="Your Name">
+                        </div>
+                        <div class="form-group">
+                            <label for="siteTitle">Page Title</label>
+                            <input type="text" id="siteTitle" placeholder="e.g., John Doe — Portfolio" value="Your Name — Portfolio">
+                        </div>
+                        <div class="form-group">
+                            <label for="copyrightYear">Copyright Year</label>
+                            <input type="number" id="copyrightYear" min="2020" max="2030" value="2024">
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="siteTitle">Page Title</label>
-                        <input type="text" id="siteTitle" placeholder="e.g., John Doe — Portfolio" value="Your Name — Portfolio">
-                    </div>
-                    <div class="form-group">
-                        <label for="copyrightYear">Copyright Year</label>
-                        <input type="number" id="copyrightYear" min="2020" max="2030" value="2024">
+
+                    <div class="form-section">
+                        <h3>Styling Options</h3>
+                        <div class="form-group">
+                            <label for="backgroundColor">Background Color</label>
+                            <input type="color" id="backgroundColor" class="color-input" value="#fffdfa">
+                        </div>
+                        <div class="form-group">
+                            <label for="textColor">Text Color</label>
+                            <input type="color" id="textColor" class="color-input" value="#000000">
+                        </div>
+                        <div class="form-group">
+                            <label for="fontFamily">Font Family</label>
+                            <select id="fontFamily">
+                                <option value="'Helvetica Neue', Arial, sans-serif">Helvetica Neue</option>
+                                <option value="Georgia, serif">Georgia</option>
+                                <option value="'Times New Roman', serif">Times New Roman</option>
+                                <option value="Arial, sans-serif">Arial</option>
+                                <option value="'Courier New', monospace">Courier New</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Navigation Menu -->
-                <div class="form-section">
-                    <h3>Navigation Menu</h3>
-                    <div id="navigationItems">
-                        <!-- Navigation items will be populated by JavaScript -->
+                <!-- Home Slideshow Tab -->
+                <div id="home-slideshow" class="tab-content">
+                    <div class="form-section">
+                        <h3>Home Slideshow Images</h3>
+                        <p style="margin-bottom: 15px; color: #666; font-size: 14px;">
+                            These images will appear in a slideshow on your homepage. You can control the size and orientation of each image.
+                        </p>
+                        <div id="homeSlideshowItems">
+                            <!-- Slideshow items will be populated by JavaScript -->
+                        </div>
+                        <button type="button" class="btn btn-secondary btn-small" onclick="addHomeSlideshowImage()">Add Image</button>
                     </div>
-                    <button type="button" class="btn btn-secondary btn-small" onclick="addNavItem()">Add Menu Item</button>
                 </div>
 
-                <!-- Portfolio Images -->
-                <div class="form-section">
-                    <h3>Portfolio Images</h3>
-                    <div id="portfolioImages">
-                        <!-- Image items will be populated by JavaScript -->
+                <!-- Work Projects Tab -->
+                <div id="work-projects" class="tab-content">
+                    <div class="form-section">
+                        <h3>Work Projects</h3>
+                        <p style="margin-bottom: 15px; color: #666; font-size: 14px;">
+                            Create projects with their own slideshows. Each project can have multiple images, a title, and description.
+                        </p>
+                        <div id="projectItems">
+                            <!-- Project items will be populated by JavaScript -->
+                        </div>
+                        <button type="button" class="btn btn-secondary btn-small" onclick="addProject()">Add Project</button>
                     </div>
-                    <button type="button" class="btn btn-secondary btn-small" onclick="addImage()">Add Image</button>
                 </div>
 
-                <!-- Styling Options -->
-                <div class="form-section">
-                    <h3>Styling Options</h3>
-                    <div class="form-group">
-                        <label for="backgroundColor">Background Color</label>
-                        <input type="color" id="backgroundColor" class="color-input" value="#fffdfa">
+                <!-- About Section Tab -->
+                <div id="about-section" class="tab-content">
+                    <div class="form-section">
+                        <h3>About Section</h3>
+                        <div class="form-group">
+                            <label for="aboutText">About Text</label>
+                            <textarea id="aboutText" rows="6" placeholder="Write your bio here. Separate paragraphs with double line breaks." onchange="updateAboutSection()"></textarea>
+                            <div class="help-text">Separate paragraphs with double line breaks (press Enter twice)</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="aboutImage">About Image URL</label>
+                            <input type="url" id="aboutImage" placeholder="https://..." onchange="updateAboutSection()">
+                        </div>
+                        <div class="form-group">
+                            <label for="aboutImageAlt">About Image Alt Text</label>
+                            <input type="text" id="aboutImageAlt" placeholder="Your photo" onchange="updateAboutSection()">
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="textColor">Text Color</label>
-                        <input type="color" id="textColor" class="color-input" value="#000000">
-                    </div>
-                    <div class="form-group">
-                        <label for="fontFamily">Font Family</label>
-                        <select id="fontFamily">
-                            <option value="'Helvetica Neue', Arial, sans-serif">Helvetica Neue</option>
-                            <option value="Georgia, serif">Georgia</option>
-                            <option value="'Times New Roman', serif">Times New Roman</option>
-                            <option value="Arial, sans-serif">Arial</option>
-                            <option value="'Courier New', monospace">Courier New</option>
-                        </select>
+                </div>
+
+                <!-- Contact Section Tab -->
+                <div id="contact-section" class="tab-content">
+                    <div class="form-section">
+                        <h3>Contact Information</h3>
+                        <div class="form-group">
+                            <label for="contactIntro">Introduction Text</label>
+                            <input type="text" id="contactIntro" placeholder="Get in touch for collaborations..." onchange="updateContactSection()">
+                        </div>
+                        <div class="form-group">
+                            <label for="contactEmail">Email</label>
+                            <input type="email" id="contactEmail" placeholder="your.email@example.com" onchange="updateContactSection()">
+                        </div>
+                        <div class="form-group">
+                            <label for="contactPhone">Phone</label>
+                            <input type="text" id="contactPhone" placeholder="+1 (555) 123-4567" onchange="updateContactSection()">
+                        </div>
+                        <div class="form-group">
+                            <label for="contactLocation">Location</label>
+                            <input type="text" id="contactLocation" placeholder="Your City, Country" onchange="updateContactSection()">
+                        </div>
+
+                        <h4 style="margin-top: 25px; margin-bottom: 15px;">Social Links</h4>
+                        <div id="socialLinks">
+                            <!-- Social links will be populated by JavaScript -->
+                        </div>
+                        <button type="button" class="btn btn-secondary btn-small" onclick="addSocialLink()">Add Social Link</button>
                     </div>
                 </div>
 
@@ -331,11 +418,12 @@
                 </div>
 
                 <div style="margin-top: 20px; padding: 15px; background: #e8f4fd; border-left: 4px solid #3498db; border-radius: 4px; font-size: 14px;">
-                    <strong>🔄 How Deployment Works:</strong><br>
-                    1. Make your changes above ✏️<br>
-                    2. Click "Download & Deploy" to get your updated website 📥<br>
-                    3. Follow the popup instructions to update your live site 🌐<br>
-                    4. Your changes go live in 1-2 minutes! ✨
+                    <strong>🎨 Slideshow Features:</strong><br>
+                    • Control image size (Small to XLarge) 📏<br>
+                    • Set orientation (Landscape, Portrait, Square) 🔄<br>
+                    • Multiple projects with individual slideshows 📂<br>
+                    • Navigation arrows and slide counters ⬅️➡️<br>
+                    • Mobile-responsive design 📱
                 </div>
             </div>
 
@@ -345,6 +433,26 @@
         </div>
     </div>
 
-    <script src="cms.js"></script>
+    <script>
+        // Tab switching functionality
+        function showTab(tabId) {
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            // Remove active class from all tabs
+            document.querySelectorAll('.section-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            // Show selected tab content
+            document.getElementById(tabId).classList.add('active');
+
+            // Add active class to clicked tab
+            event.target.classList.add('active');
+        }
+    </script>
+    <script src="cms-new.js"></script>
 </body>
 </html>
