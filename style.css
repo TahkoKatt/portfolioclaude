@@ -1,0 +1,356 @@
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    overflow-y: scroll;
+    min-height: 100%;
+    -webkit-text-size-adjust: none;
+    overflow-x: hidden;
+}
+
+body {
+    background-color: #fffdfa;
+    transition: background-color 300ms ease;
+    min-height: 100%;
+    width: 100%;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    color: #000;
+    line-height: 1.4;
+}
+
+/* Navigation Styles */
+.navbar {
+    position: fixed;
+    z-index: 100;
+    width: 100%;
+    top: 0;
+    padding: 20px 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgba(255, 253, 250, 0.95);
+    backdrop-filter: blur(10px);
+}
+
+.sitetitle {
+    font-size: 16px;
+    font-weight: normal;
+    text-decoration: none;
+    color: #000;
+    z-index: 101;
+}
+
+.sitetitle:hover {
+    text-decoration: underline;
+}
+
+.main-nav ul {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+    margin: 0;
+    padding: 0;
+}
+
+.main-nav a {
+    text-decoration: none;
+    color: #000;
+    font-size: 16px;
+    position: relative;
+}
+
+.main-nav a:hover,
+.main-nav a.current {
+    text-decoration: underline;
+}
+
+/* Dropdown Menu */
+.dropdown {
+    position: relative;
+}
+
+.dropdown:hover .sub-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.sub-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: rgba(255, 253, 250, 0.95);
+    backdrop-filter: blur(10px);
+    min-width: 200px;
+    padding: 10px 0;
+    list-style: none;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+    z-index: 1000;
+}
+
+.sub-menu li {
+    padding: 5px 20px;
+}
+
+.sub-menu a {
+    display: block;
+    padding: 5px 0;
+    white-space: nowrap;
+}
+
+/* Mobile Menu */
+.mobile-menu-toggle {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    z-index: 101;
+}
+
+.mobile-menu-toggle span {
+    width: 25px;
+    height: 2px;
+    background-color: #000;
+    margin: 3px 0;
+    transition: 0.3s;
+}
+
+.mobile-nav {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(255, 253, 250, 0.95);
+    backdrop-filter: blur(20px);
+    z-index: 99;
+    padding-top: 80px;
+}
+
+.mobile-nav ul {
+    list-style: none;
+    padding: 0 5%;
+}
+
+.mobile-nav li {
+    margin-bottom: 20px;
+}
+
+.mobile-nav a {
+    text-decoration: none;
+    color: #000;
+    font-size: 24px;
+    display: block;
+    padding: 10px 0;
+}
+
+/* Main Content */
+.main-content {
+    padding-top: 80px;
+    padding-bottom: 5%;
+}
+
+/* Grid System */
+.grid-container {
+    max-width: none;
+    margin: 0;
+    padding: 0 5%;
+}
+
+.row {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 1%;
+    margin-bottom: 5%;
+    align-items: center;
+}
+
+.col {
+    position: relative;
+}
+
+/* Column Spans */
+.span-1 { grid-column: span 1; }
+.span-2 { grid-column: span 2; }
+.span-3 { grid-column: span 3; }
+.span-4 { grid-column: span 4; }
+.span-5 { grid-column: span 5; }
+.span-6 { grid-column: span 6; }
+.span-7 { grid-column: span 7; }
+.span-8 { grid-column: span 8; }
+.span-9 { grid-column: span 9; }
+.span-10 { grid-column: span 10; }
+.span-11 { grid-column: span 11; }
+.span-12 { grid-column: span 12; }
+
+/* Column Push (Offset) */
+.push-1 { grid-column-start: 2; }
+.push-2 { grid-column-start: 3; }
+.push-3 { grid-column-start: 4; }
+.push-4 { grid-column-start: 5; }
+.push-5 { grid-column-start: 6; }
+.push-6 { grid-column-start: 7; }
+
+/* Image Containers */
+.image-container {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+}
+
+.portfolio-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.portfolio-image.loaded {
+    opacity: 1;
+}
+
+/* Image Aspect Ratios */
+.landscape .portfolio-image {
+    aspect-ratio: 3/2;
+    object-fit: cover;
+}
+
+.portrait .portfolio-image {
+    aspect-ratio: 4/5;
+    object-fit: cover;
+}
+
+.square .portfolio-image {
+    aspect-ratio: 1/1;
+    object-fit: cover;
+}
+
+/* Footer */
+.footer {
+    padding: 40px 5%;
+    text-align: center;
+    background-color: #fffdfa;
+    border-top: 1px solid #eee;
+}
+
+.footer-content p {
+    font-size: 14px;
+    color: #666;
+}
+
+/* Mobile Styles */
+@media (max-width: 600px) {
+    .navbar {
+        padding: 15px 5%;
+    }
+
+    .main-nav {
+        display: none;
+    }
+
+    .mobile-menu-toggle {
+        display: flex;
+    }
+
+    .main-content {
+        padding-top: 60px;
+    }
+
+    .grid-container {
+        padding: 0 3%;
+    }
+
+    .row {
+        display: block;
+        margin-bottom: 20px;
+    }
+
+    .col {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    /* Mobile specific image layouts */
+    .span-6.push-3,
+    .span-4.push-4,
+    .span-8.push-2 {
+        width: 100%;
+        grid-column: 1 / -1;
+    }
+
+    .span-3.push-2,
+    .span-3.push-1 {
+        width: 100%;
+        grid-column: 1 / -1;
+        margin-bottom: 20px;
+    }
+}
+
+/* Tablet Styles */
+@media (min-width: 601px) and (max-width: 1024px) {
+    .grid-container {
+        padding: 0 4%;
+    }
+
+    .navbar {
+        padding: 20px 4%;
+    }
+}
+
+/* Image Loading Animation */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.portfolio-image {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Hover Effects */
+.portfolio-image:hover {
+    transform: scale(1.02);
+    transition: transform 0.3s ease;
+}
+
+.image-container {
+    transition: all 0.3s ease;
+}
+
+/* Smooth Scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Focus States */
+a:focus,
+button:focus {
+    outline: 2px solid #000;
+    outline-offset: 2px;
+}
+
+/* Print Styles */
+@media print {
+    .navbar,
+    .mobile-nav,
+    .footer {
+        display: none;
+    }
+
+    .main-content {
+        padding-top: 0;
+    }
+
+    .portfolio-image {
+        max-height: 300px;
+        object-fit: contain;
+    }
+}

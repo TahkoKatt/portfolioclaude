@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio CMS - Content Management System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .cms-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .cms-header {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        .cms-header h1 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .cms-header p {
+            color: #7f8c8d;
+        }
+
+        .cms-main {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .cms-form {
+            background: #fff;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .cms-preview {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 20px;
+            height: 80vh;
+        }
+
+        .cms-preview iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 8px;
+        }
+
+        .form-section {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .form-section:last-child {
+            border-bottom: none;
+        }
+
+        .form-section h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: #555;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .image-item {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            border: 1px solid #e9ecef;
+        }
+
+        .image-item h4 {
+            color: #495057;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        .image-controls {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 10px;
+            align-items: end;
+        }
+
+        .btn {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background: #2980b9;
+        }
+
+        .btn-success {
+            background: #27ae60;
+        }
+
+        .btn-success:hover {
+            background: #229954;
+        }
+
+        .btn-danger {
+            background: #e74c3c;
+        }
+
+        .btn-danger:hover {
+            background: #c0392b;
+        }
+
+        .btn-secondary {
+            background: #95a5a6;
+        }
+
+        .btn-secondary:hover {
+            background: #7f8c8d;
+        }
+
+        .btn-small {
+            padding: 5px 10px;
+            font-size: 12px;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+
+        .nav-item {
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            border: 1px solid #e9ecef;
+        }
+
+        .nav-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .color-input {
+            width: 50px !important;
+            height: 35px;
+            padding: 2px;
+            border-radius: 4px;
+        }
+
+        .grid-helper {
+            font-size: 12px;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        @media (max-width: 768px) {
+            .cms-main {
+                grid-template-columns: 1fr;
+            }
+
+            .cms-preview {
+                position: static;
+                height: 300px;
+            }
+        }
+
+        .success-message {
+            background: #d4edda;
+            color: #155724;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            border: 1px solid #c3e6cb;
+            display: none;
+        }
+
+        .help-text {
+            font-size: 12px;
+            color: #666;
+            margin-top: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div class="cms-container">
+        <div class="cms-header">
+            <h1>Portfolio CMS</h1>
+            <p>Edit your portfolio content easily without touching any code. Changes are saved automatically and you can preview them live.</p>
+        </div>
+
+        <div class="cms-main">
+            <div class="cms-form">
+                <div class="success-message" id="successMessage">
+                    Changes saved successfully!
+                </div>
+
+                <!-- Site Information -->
+                <div class="form-section">
+                    <h3>Site Information</h3>
+                    <div class="form-group">
+                        <label for="siteName">Your Name/Brand</label>
+                        <input type="text" id="siteName" placeholder="e.g., John Doe" value="Your Name">
+                    </div>
+                    <div class="form-group">
+                        <label for="siteTitle">Page Title</label>
+                        <input type="text" id="siteTitle" placeholder="e.g., John Doe — Portfolio" value="Your Name — Portfolio">
+                    </div>
+                    <div class="form-group">
+                        <label for="copyrightYear">Copyright Year</label>
+                        <input type="number" id="copyrightYear" min="2020" max="2030" value="2024">
+                    </div>
+                </div>
+
+                <!-- Navigation Menu -->
+                <div class="form-section">
+                    <h3>Navigation Menu</h3>
+                    <div id="navigationItems">
+                        <!-- Navigation items will be populated by JavaScript -->
+                    </div>
+                    <button type="button" class="btn btn-secondary btn-small" onclick="addNavItem()">Add Menu Item</button>
+                </div>
+
+                <!-- Portfolio Images -->
+                <div class="form-section">
+                    <h3>Portfolio Images</h3>
+                    <div id="portfolioImages">
+                        <!-- Image items will be populated by JavaScript -->
+                    </div>
+                    <button type="button" class="btn btn-secondary btn-small" onclick="addImage()">Add Image</button>
+                </div>
+
+                <!-- Styling Options -->
+                <div class="form-section">
+                    <h3>Styling Options</h3>
+                    <div class="form-group">
+                        <label for="backgroundColor">Background Color</label>
+                        <input type="color" id="backgroundColor" class="color-input" value="#fffdfa">
+                    </div>
+                    <div class="form-group">
+                        <label for="textColor">Text Color</label>
+                        <input type="color" id="textColor" class="color-input" value="#000000">
+                    </div>
+                    <div class="form-group">
+                        <label for="fontFamily">Font Family</label>
+                        <select id="fontFamily">
+                            <option value="'Helvetica Neue', Arial, sans-serif">Helvetica Neue</option>
+                            <option value="Georgia, serif">Georgia</option>
+                            <option value="'Times New Roman', serif">Times New Roman</option>
+                            <option value="Arial, sans-serif">Arial</option>
+                            <option value="'Courier New', monospace">Courier New</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="action-buttons">
+                    <button type="button" class="btn btn-success" onclick="saveAndPreview()">Save & Preview</button>
+                    <button type="button" class="btn" onclick="downloadFiles()">Download Website</button>
+                    <button type="button" class="btn btn-secondary" onclick="resetToDefaults()">Reset to Defaults</button>
+                </div>
+            </div>
+
+            <div class="cms-preview">
+                <iframe id="previewFrame" src="about:blank"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <script src="cms.js"></script>
+</body>
+</html>
